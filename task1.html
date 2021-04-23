@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Task 1</title>
+</head>
+
+<body>
+	<div style="background-color: #11CDD4; color:white;font-family: Arial;font-weight: bold;font-size: 50px;text-align: center">
+	Task 1
+	</div>
+	<br>
+	<br>
+	<h2>
+		What is Docker?
+	</h2>
+	<p>
+	Docker is an open platform for developing, shipping, and running applications. Docker enables you to separate your applications from your infrastructure so you can deliver software quickly. With Docker, you can manage your infrastructure in the same ways you manage your applications. By taking advantage of Docker’s methodologies for shipping, testing, and deploying code quickly, you can significantly reduce the delay between writing code and running it in production.
+	</p>
+	<h3>
+		My OS is based on predefined Docker Image: 
+	</h3>
+	<p>
+		randomdude/gcc-cross-x86_64-elf
+	</p>
+	<h3>
+		We can run an instance of that image (known as container) using :-
+	</h3>
+	
+	<p>
+	docker run --rm -it -v "%cd%":/root/env myos-buildenv
+	</p>
+	<h2>
+		Bootloader locates the operating system using the magic number:
+	</h2>
+	<p>
+	; magic number
+	dd 0xe85250d6 ; multiboot2
+	</p>
+	
+	<h2 style="text-align: center;color:cornflowerblue">
+		main.asm
+	</h2>
+	<p>
+	global start<br>
+
+section .text<br>
+bits 32<br>
+start:<br>
+	; print `OK`<br>
+	//writing directly to video memory<br>
+	mov dword [0xb8000], 0x2f4b2f4f <br>
+	//freezs all other operations<br>
+	hlt //freezs all other operations
+
+
+	</p>
+	
+	<h3 style ="color: red">
+	linker.Id file defines how the OS is linked and start(which is defined in main.asm) is defined as the Entry point.</h3>
+	
+	<h2>
+	What are MakeFiles?
+	</h2>
+	<p>
+	Make is a build automation tool that automatically builds executable programs and libraries from source code by reading files called Makefiles which specify how to derive the target program</p>
+	<h3>
+		Finally emulate the operating system using QEMU:
+	</h3>
+	<p>
+	qemu-system-x86_64 -cdrom dist/x86_64/kernel.iso</p>
+
+</body>
+</html>
